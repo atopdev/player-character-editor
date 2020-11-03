@@ -1,0 +1,17 @@
+.block {
+  margin-bottom: 20px;
+}
+
+.detail-table {
+  border-collapse: collapse;
+  margin-bottom: 10px;
+
+  th,
+  td {
+    text-align: center;
+  }
+
+  .first-cell {
+    min-width: 130px;
+  }
+}

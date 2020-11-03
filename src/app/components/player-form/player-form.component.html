@@ -1,0 +1,306 @@
+<div class="container">
+  <h3 mat-dialog-title>{{ mode === 'new' ? 'Add' : 'Edit' }} Player</h3>
+
+  <form
+    class="mat-dialog-content"
+    (ngSubmit)="playerForm.form.valid && handleSubmit()"
+    #playerForm="ngForm"
+    novalidate
+  >
+    <div class="row">
+      <div class="column">
+        <mat-card>
+          <mat-card-title>Base Attributes</mat-card-title>
+          <mat-card-content>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Player name"
+                  [(ngModel)]="data.name"
+                  name="name"
+                  required
+                />
+                <mat-error *ngIf="handleError(playerForm, 'name', 'required')">
+                  Required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  type="number"
+                  class="form-control"
+                  placeholder="Strength"
+                  [(ngModel)]="data.strength"
+                  name="strength"
+                  required
+                  min="0"
+                />
+                <mat-error
+                  *ngIf="handleError(playerForm, 'strength', 'required')"
+                >
+                  Required
+                </mat-error>
+                <mat-error *ngIf="handleError(playerForm, 'strength', 'min')">
+                  Should be zero or positive integer
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  type="number"
+                  class="form-control"
+                  placeholder="Dexterity"
+                  [(ngModel)]="data.dexterity"
+                  name="dexterity"
+                  required
+                  min="0"
+                />
+                <mat-error
+                  *ngIf="handleError(playerForm, 'dexterity', 'required')"
+                >
+                  Required
+                </mat-error>
+                <mat-error *ngIf="handleError(playerForm, 'dexterity', 'min')">
+                  Should be zero or positive integer
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  type="number"
+                  class="form-control"
+                  placeholder="Mind"
+                  [(ngModel)]="data.mind"
+                  name="mind"
+                  required
+                  min="0"
+                />
+                <mat-error *ngIf="handleError(playerForm, 'mind', 'required')">
+                  Required
+                </mat-error>
+                <mat-error *ngIf="handleError(playerForm, 'mind', 'min')">
+                  Should be zero or positive integer
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  type="number"
+                  class="form-control"
+                  placeholder="Presence"
+                  [(ngModel)]="data.presence"
+                  name="presence"
+                  required
+                  min="0"
+                />
+                <mat-error
+                  *ngIf="handleError(playerForm, 'presence', 'required')"
+                >
+                  Required
+                </mat-error>
+                <mat-error *ngIf="handleError(playerForm, 'presence', 'min')">
+                  Should be zero or positive integer
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="column">
+        <mat-card>
+          <mat-card-title>Combat Attributes</mat-card-title>
+          <mat-card-content>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Vitality"
+                  [value]="data.vitality"
+                  type="number"
+                  readonly
+                />
+                <mat-hint align="start">
+                  - {{ data.damage }} damage{{ data.damage > 1 ? 's' : '' }}
+                </mat-hint>
+              </mat-form-field>
+              <button mat-icon-button type="button" (click)="handleDamage()">
+                <mat-icon>my_location</mat-icon>
+              </button>
+            </div>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Evasion"
+                  [value]="data.evasion"
+                  type="number"
+                  readonly
+                />
+              </mat-form-field>
+            </div>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Armor"
+                  [value]="data.armor"
+                  type="number"
+                  readonly
+                />
+              </mat-form-field>
+            </div>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Alacrity"
+                  [value]="data.alacrity"
+                  type="number"
+                  readonly
+                />
+              </mat-form-field>
+            </div>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Tenacity"
+                  [value]="data.tenacity"
+                  type="number"
+                  readonly
+                />
+                <mat-hint align="start">
+                  + {{ data.tenacityReceived }} received
+                </mat-hint>
+              </mat-form-field>
+              <button mat-icon-button type="button" (click)="handleTenacity()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <div class="form">
+              <mat-form-field color="accent">
+                <input
+                  matInput
+                  class="form-control"
+                  placeholder="Power"
+                  [value]="data.power"
+                  type="number"
+                  readonly
+                />
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <mat-card>
+          <mat-card-title>Skills</mat-card-title>
+          <mat-card-content>
+            <div class="form" *ngFor="let skill of skillTypes">
+              <app-skill-editor
+                [skill]="skill"
+                [(value)]="data.skills[skill]"
+                [maxRank]="data.getMaxRank(skill)"
+              ></app-skill-editor>
+              <app-exp-generator
+                [rank]="data.skills[skill]"
+                [(value)]="data.exps[skill]"
+              ></app-exp-generator>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column column-down">
+        <mat-card>
+          <mat-card-title>Armors</mat-card-title>
+          <mat-card-content>
+            <div class="form">
+              <mat-radio-group
+                class="radio-group"
+                name="cArmor"
+                [(ngModel)]="data.cArmor"
+              >
+                <mat-radio-button value="">None</mat-radio-button>
+                <mat-radio-button
+                  *ngFor="let armor of armors"
+                  [value]="armor.key"
+                >
+                  {{ armor.label }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Weapons</mat-card-title>
+          <mat-card-content>
+            <div class="form">
+              <mat-radio-group
+                class="radio-group"
+                name="cWeapon"
+                [(ngModel)]="data.cWeapon"
+              >
+                <mat-radio-button value="">None</mat-radio-button>
+                <mat-radio-button
+                  *ngFor="let weapon of weapons"
+                  [value]="weapon.key"
+                >
+                  {{ weapon.label }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-title>Traits</mat-card-title>
+          <mat-card-content>
+            <div class="form form-down">
+              <mat-checkbox
+                *ngFor="let trait of traits"
+                [(checked)]="traitsObj[trait.key]"
+                (change)="handleTraitCheck(trait.key, $event)"
+              >
+                {{ trait.label }}
+              </mat-checkbox>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+      <button
+        mat-raised-button
+        type="button"
+        (click)="handleClose()"
+        tabindex="-1"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,90 @@
+<div class="block">
+  <ng-container *ngIf="!skipBase">
+    <h3>{{ player.name }}</h3>
+    <table border="1" cellspacing="0" cellpadding="3" class="detail-table">
+      <tbody>
+        <tr>
+          <th rowspan="2" class="first-cell">Base Attributes</th>
+          <th>Strength</th>
+          <th>Dexterity</th>
+          <th>Mind</th>
+          <th>Presence</th>
+        </tr>
+        <tr>
+          <td>{{ player.strength }}</td>
+          <td>{{ player.dexterity }}</td>
+          <td>{{ player.mind }}</td>
+          <td>{{ player.presence }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <table border="1" cellspacing="0" cellpadding="3" class="detail-table">
+    <tbody>
+      <tr>
+        <th rowspan="2" class="first-cell">Combat Attributes</th>
+        <th>Vitality</th>
+        <th>Evasion</th>
+        <th>Armor</th>
+        <th>Alacrity</th>
+        <th>Tenacity</th>
+        <th>Power</th>
+      </tr>
+      <tr>
+        <td>
+          {{ player.vitality }}
+          <small>
+            (- {{ player.damage }} damage{{ player.damage > 1 ? 's' : '' }})
+          </small>
+        </td>
+        <td>{{ player.evasion }}</td>
+        <td>{{ player.armor }}</td>
+        <td>{{ player.alacrity }}</td>
+        <td>
+          {{ player.tenacity }}
+          <small> (+ {{ player.tenacityReceived }}) </small>
+        </td>
+        <td>{{ player.power }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table border="1" cellspacing="0" cellpadding="3" class="detail-table">
+    <tbody>
+      <tr>
+        <th rowspan="2" class="first-cell">Skills</th>
+        <th *ngFor="let skill of skillTypes">
+          {{ skill }}
+        </th>
+      </tr>
+      <tr>
+        <td *ngFor="let skill of skillTypes">
+          {{ getSkillRank(player.skills[skill]) }} (+ {{ player.exps[skill] }})
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table border="1" cellspacing="0" cellpadding="3" class="detail-table">
+    <tbody>
+      <tr>
+        <th rowspan="2" class="first-cell">Others</th>
+        <th>Armor</th>
+        <th>Weapon</th>
+        <th>Traits</th>
+      </tr>
+      <tr>
+        <td>
+          {{ getArmorName(player.cArmor) }}
+        </td>
+        <td>
+          {{ getWeaponName(player.cWeapon) }}
+        </td>
+        <td>
+          {{ getTraitNames(player.cTraits) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

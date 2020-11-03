@@ -1,0 +1,8 @@
+<mat-form-field color="accent">
+  <mat-label>{{ skill }}</mat-label>
+  <mat-select [(value)]="value" (selectionChange)="handleChange()">
+    <mat-option *ngFor="let rank of rankOptions" [value]="rank.value">
+      {{ rank.label }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

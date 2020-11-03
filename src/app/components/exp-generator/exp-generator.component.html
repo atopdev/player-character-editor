@@ -1,0 +1,4 @@
+<button mat-mini-fab color="basic" type="button" (click)="handleClick()">
+  <mat-icon *ngIf="value === 0">flash_on</mat-icon>
+  <ng-container *ngIf="value > 0">{{ value }}</ng-container>
+</button>

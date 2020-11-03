@@ -1,0 +1,84 @@
+<mat-toolbar color="primary">
+  <span>Player Character Sheet</span>
+</mat-toolbar>
+
+<div class="container">
+  <div class="right-section">
+    <button mat-raised-button (click)="handleImport()">Import</button>
+    <button mat-raised-button (click)="handleExport()">Export</button>
+    <button mat-raised-button color="primary" (click)="handleAddPlayer()">
+      Add Player
+    </button>
+    <input type="file" #file (change)="handleReadFile($event)" />
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of columnsToDisplay"
+      >
+        <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef align="right">Actions</th>
+        <td
+          mat-cell
+          *matCellDef="let element; let i = renderIndex"
+          align="right"
+        >
+          <button
+            mat-icon-button
+            color="accent"
+            (click)="handleEditPlayer($event, i / 2, element)"
+          >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="handleDeletePlayer($event, i / 2)"
+          >
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="allColumnsToDisplay.length"
+        >
+          <div
+            class="element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <app-player-detail [player]="element"></app-player-detail>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="allColumnsToDisplay"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: allColumnsToDisplay"
+        class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="detail-row"
+      ></tr>
+    </table>
+
+    <div class="no-results" *ngIf="dataSource.length == 0">No results</div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.right-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+
+  .mat-button-base {
+    margin: 8px 8px 8px 0;
+  }
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  font-size: 14px;
+  font-style: italic;
+}
+
+table {
+  width: 100%;
+}
+
+tr.mat-header-row th.mat-header-cell {
+  text-transform: capitalize;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+  cursor: pointer;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+input[type='file'] {
+  display: none;
+}
